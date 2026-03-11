@@ -1,0 +1,64 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#0284c7"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#bg)" filter="url(#shadow)"/>
+  
+  <!-- Neural network visualization -->
+  <g fill="white">
+    <!-- Center node -->
+    <circle cx="256" cy="256" r="40"/>
+    
+    <!-- Inner ring - 6 nodes -->
+    <circle cx="256" cy="140" r="30" opacity="0.95"/>
+    <circle cx="356" cy="186" r="30" opacity="0.95"/>
+    <circle cx="356" cy="326" r="30" opacity="0.95"/>
+    <circle cx="256" cy="372" r="30" opacity="0.95"/>
+    <circle cx="156" cy="326" r="30" opacity="0.95"/>
+    <circle cx="156" cy="186" r="30" opacity="0.95"/>
+    
+    <!-- Outer ring - 6 smaller nodes -->
+    <circle cx="256" cy="70" r="22" opacity="0.7"/>
+    <circle cx="400" cy="150" r="22" opacity="0.7"/>
+    <circle cx="400" cy="362" r="22" opacity="0.7"/>
+    <circle cx="256" cy="442" r="22" opacity="0.7"/>
+    <circle cx="112" cy="362" r="22" opacity="0.7"/>
+    <circle cx="112" cy="150" r="22" opacity="0.7"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <!-- From center to inner ring -->
+    <line x1="256" y1="256" x2="256" y2="140"/>
+    <line x1="256" y1="256" x2="356" y2="186"/>
+    <line x1="256" y1="256" x2="356" y2="326"/>
+    <line x1="256" y1="256" x2="256" y2="372"/>
+    <line x1="256" y1="256" x2="156" y2="326"/>
+    <line x1="256" y1="256" x2="156" y2="186"/>
+    
+    <!-- Inner ring connections -->
+    <line x1="256" y1="140" x2="356" y2="186"/>
+    <line x1="356" y1="186" x2="356" y2="326"/>
+    <line x1="356" y1="326" x2="256" y2="372"/>
+    <line x1="256" y1="372" x2="156" y2="326"/>
+    <line x1="156" y1="326" x2="156" y2="186"/>
+    <line x1="156" y1="186" x2="256" y2="140"/>
+    
+    <!-- From inner to outer ring -->
+    <line x1="256" y1="140" x2="256" y2="70"/>
+    <line x1="356" y1="186" x2="400" y2="150"/>
+    <line x1="356" y1="326" x2="400" y2="362"/>
+    <line x1="256" y1="372" x2="256" y2="442"/>
+    <line x1="156" y1="326" x2="112" y2="362"/>
+    <line x1="156" y1="186" x2="112" y2="150"/>
+  </g>
+</svg>
