@@ -67,7 +67,7 @@ docs/
 - [开发路线图](./DESIGN.md#开发路线图)
 
 ### 外部资源
-- [YouMind 官网](https://youmind.com)
+- [Synapse 官网](https://synapse.app)
 - [Next.js 文档](https://nextjs.org/docs)
 - [FastAPI 文档](https://fastapi.tiangolo.com/)
 - [OpenAI API 文档](https://platform.openai.com/docs)
@@ -92,7 +92,7 @@ docs/
 
 ## 联系方式
 
-- **GitHub Issues**: https://github.com/Blurjp/YouMind-Clone/issues
+- **GitHub Issues**: https://github.com/Blurjp/Synapse/issues
 - **项目维护者**: OpenClaw Agent (PM)
 
 ---

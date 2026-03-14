@@ -1,16 +1,16 @@
-# YouMind Clone - Design Document
+# Synapse - Design Document
 
 ## 项目概述
 
-**项目名称**: YouMind Clone  
-**目标**: 复刻 YouMind.com - AI 驱动的学习和创作平台  
-**GitHub**: https://github.com/Blurjp/YouMind-Clone  
+**项目名称**: Synapse  
+**目标**: 复刻 Synapse.com - AI 驱动的学习和创作平台  
+**GitHub**: https://github.com/Blurjp/Synapse  
 **创建时间**: 2026-03-11
 
 ### 核心价值主张
 **"Learn smarter. Create bolder."**
 
-YouMind 是一个将学习与创作无缝连接的 AI 平台。它不仅是一个内容管理工具，更是一个能够理解用户思维方式的智能创作伙伴。
+Synapse 是一个将学习与创作无缝连接的 AI 平台。它不仅是一个内容管理工具，更是一个能够理解用户思维方式的智能创作伙伴。
 
 ---
 
@@ -541,7 +541,7 @@ POST   /api/knowledge-graph/connections // 创建连接
 
 ```typescript
 // 实时协作
-ws://api.youmind-clone.com/collaboration
+ws://api.synapse.app/collaboration
 
 Events:
 - document:updated
@@ -560,7 +560,7 @@ Events:
 #### 1. Dashboard (仪表板)
 ```
 ┌────────────────────────────────────────────┐
-│  YouMind Clone          🔍 Search    👤    │
+│  Synapse          🔍 Search    👤    │
 ├────────────────────────────────────────────┤
 │                                            │
 │  ┌─────────────┐  ┌──────────────────┐   │
@@ -882,7 +882,7 @@ Events:
 
 ## 竞品分析
 
-| 功能 | YouMind | Notion | Obsidian | Roam Research | Mem.ai |
+| 功能 | Synapse | Notion | Obsidian | Roam Research | Mem.ai |
 |-----|---------|--------|----------|---------------|--------|
 | AI 洞察 | ✅ | ❌ | ❌ | ❌ | ✅ |
 | 多源导入 | ✅ | ✅ | ⚠️ | ⚠️ | ✅ |
@@ -959,7 +959,7 @@ Events:
 ## 附录
 
 ### 相关资源
-- **YouMind 官网**: https://youmind.com
+- **Synapse 官网**: https://synapse.com
 - **竞品分析**: Notion, Obsidian, Roam Research, Mem.ai
 - **技术文档**: 
   - [Next.js 文档](https://nextjs.org/docs)
