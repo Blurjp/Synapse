@@ -1,5 +1,5 @@
 // Background Service Worker
-const API_BASE_URL = 'http://localhost:8001';
+const API_BASE_URL = 'https://synapse-production-68d7.up.railway.app';
 
 // Create context menu items
 chrome.runtime.onInstalled.addListener(() => {
@@ -82,7 +82,7 @@ async function savePage(tab) {
         }
       };
       
-      const result = await sendToBackend('/api/sources', data);
+      const result = await sendToBackend('/api/sources/', data);
       
       if (result.success) {
         showNotification('Page Saved', `"${tab.title}" saved to Synapse`);
@@ -106,7 +106,7 @@ async function saveHighlight(text, sourceUrl, sourceTitle) {
       source_title: sourceTitle
     };
     
-    const result = await sendToBackend('/api/highlights', data);
+    const result = await sendToBackend('/api/highlights/', data);
     
     if (result.success) {
       showNotification('Highlight Saved', 'Highlight saved to Synapse');

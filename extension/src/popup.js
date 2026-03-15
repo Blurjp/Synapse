@@ -1,18 +1,20 @@
 // Popup Script
-const API_BASE_URL = 'http://localhost:8001';
+const API_BASE_URL = 'https://synapse-production-68d7.up.railway.app';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Get current tab info
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
-  document.getElementById('pageTitle').textContent = tab.title;
-  document.getElementById('pageUrl').textContent = tab.url;
+  document.getElementById('pageTitle').textContent = tab.title || 'Unknown';
+  document.getElementById('pageUrl').textContent = tab.url || '';
   
   // Check connection status
   checkConnection();
   
-  // Check for selected text
-  checkSelection();
+  // Check for selected text (only on http/https pages)
+  if (tab.url && (tab.url.startsWith('http://') || tab.url.startsWith('https://'))) {
+    checkSelection();
+  }
   
   // Load recent saves
   loadRecentSaves();
@@ -45,13 +47,25 @@ async function checkConnection() {
 async function checkSelection() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
-  chrome.tabs.sendMessage(tab.id, { type: 'GET_SELECTION' }, (response) => {
-    if (response && response.selection) {
-      document.getElementById('selectionSection').style.display = 'block';
-      document.getElementById('selectionPreview').textContent = 
-        response.selection.substring(0, 100) + (response.selection.length > 100 ? '...' : '');
-    }
-  });
+  if (!tab.id) return;
+  
+  try {
+    chrome.tabs.sendMessage(tab.id, { type: 'GET_SELECTION' }, (response) => {
+      // Check for runtime errors (content script not loaded)
+      if (chrome.runtime.lastError) {
+        console.log('Content script not available:', chrome.runtime.lastError.message);
+        return;
+      }
+      
+      if (response && response.selection) {
+        document.getElementById('selectionSection').style.display = 'block';
+        document.getElementById('selectionPreview').textContent = 
+          response.selection.substring(0, 100) + (response.selection.length > 100 ? '...' : '');
+      }
+    });
+  } catch (error) {
+    console.log('Could not check selection:', error.message);
+  }
 }
 
 // Save page to Synapse
@@ -62,13 +76,47 @@ async function savePage() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
+    if (!tab.id || !tab.url || (!tab.url.startsWith('http://') && !tab.url.startsWith('https://'))) {
+      showError('Cannot save this page. Only http/https pages are supported.');
+      btn.classList.remove('loading');
+      return;
+    }
+    
     // Get page content
     chrome.tabs.sendMessage(tab.id, { type: 'GET_PAGE_CONTENT' }, async (response) => {
+      // Check for runtime errors
+      if (chrome.runtime.lastError) {
+        console.log('Content script not available:', chrome.runtime.lastError.message);
+        // Save basic info without content
+        const data = {
+          type: 'webpage',
+          title: tab.title,
+          content: '',
+          raw_url: tab.url,
+          metadata: {
+            author: '',
+            publishedAt: null,
+            wordCount: 0
+          }
+        };
+        
+        const result = await sendToBackend('/api/sources/', data);
+        
+        if (result.success) {
+          showSuccess('Page URL saved to Synapse!');
+          loadRecentSaves();
+        } else {
+          showError('Failed to save page');
+        }
+        btn.classList.remove('loading');
+        return;
+      }
+      
       if (response) {
         const data = {
           type: 'webpage',
           title: tab.title,
-          content: response.content,
+          content: response.content || '',
           raw_url: tab.url,
           metadata: {
             author: response.author || '',
@@ -78,7 +126,7 @@ async function savePage() {
         };
         
         // Send to backend
-        const result = await sendToBackend('/api/sources', data);
+        const result = await sendToBackend('/api/sources/', data);
         
         if (result.success) {
           showSuccess('Page saved to Synapse!');
@@ -87,10 +135,10 @@ async function savePage() {
           showError('Failed to save page');
         }
       }
+      btn.classList.remove('loading');
     });
   } catch (error) {
     showError('Error saving page: ' + error.message);
-  } finally {
     btn.classList.remove('loading');
   }
 }
@@ -103,7 +151,20 @@ async function saveSelection() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
+    if (!tab.id) {
+      btn.classList.remove('loading');
+      return;
+    }
+    
     chrome.tabs.sendMessage(tab.id, { type: 'GET_SELECTION' }, async (response) => {
+      // Check for runtime errors
+      if (chrome.runtime.lastError) {
+        console.log('Content script not available:', chrome.runtime.lastError.message);
+        showError('Cannot get selection. Please refresh the page and try again.');
+        btn.classList.remove('loading');
+        return;
+      }
+      
       if (response && response.selection) {
         const data = {
           text: response.selection,
@@ -111,7 +172,7 @@ async function saveSelection() {
           source_title: tab.title
         };
         
-        const result = await sendToBackend('/api/highlights', data);
+        const result = await sendToBackend('/api/highlights/', data);
         
         if (result.success) {
           showSuccess('Highlight saved!');
@@ -120,10 +181,10 @@ async function saveSelection() {
           showError('Failed to save highlight');
         }
       }
+      btn.classList.remove('loading');
     });
   } catch (error) {
     showError('Error saving highlight: ' + error.message);
-  } finally {
     btn.classList.remove('loading');
   }
 }
@@ -146,11 +207,11 @@ async function saveNote() {
     
     const data = {
       content: note,
-      source_url: tab.url,
-      source_title: tab.title
+      source_url: tab.url || '',
+      source_title: tab.title || ''
     };
     
-    const result = await sendToBackend('/api/notes', data);
+    const result = await sendToBackend('/api/notes/', data);
     
     if (result.success) {
       showSuccess('Note saved!');
@@ -192,7 +253,7 @@ async function loadRecentSaves() {
   const recentList = document.getElementById('recentList');
   
   try {
-    const response = await fetch(`${API_BASE_URL}/api/sources?limit=5`);
+    const response = await fetch(`${API_BASE_URL}/api/sources/?limit=5`);
     const data = await response.json();
     
     if (data.sources && data.sources.length > 0) {
@@ -215,7 +276,7 @@ async function loadRecentSaves() {
 // Open Synapse dashboard
 function openDashboard(e) {
   e.preventDefault();
-  chrome.tabs.create({ url: 'http://localhost:3000' });
+  chrome.tabs.create({ url: 'https://frontend-psi-dun-58.vercel.app' });
 }
 
 // Open settings
