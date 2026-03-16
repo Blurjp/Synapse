@@ -1,4 +1,5 @@
-import { BookOpen, Sparkles, Edit3, Link2, Brain, Zap } from "lucide-react";
+import { Sparkles, Edit3, Link2, Brain, Zap } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -6,12 +7,12 @@ export default function Home() {
       {/* Header */}
       <header className="container mx-auto px-6 py-4">
         <nav className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <Brain className="w-8 h-8 text-primary-600" />
             <span className="text-2xl font-bold text-slate-900 dark:text-white">
               Synapse
             </span>
-          </div>
+          </Link>
           <div className="flex items-center gap-6">
             <a href="#features" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
               Features
@@ -19,12 +20,15 @@ export default function Home() {
             <a href="#use-cases" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
               Use Cases
             </a>
-            <a href="#" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+            <a href="#pricing" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
               Pricing
             </a>
-            <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
+            <Link href="/auth/signin" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">
+              Sign In
+            </Link>
+            <Link href="/auth/signin" className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
               Get Started
-            </button>
+            </Link>
           </div>
         </nav>
       </header>
@@ -45,9 +49,9 @@ export default function Home() {
             Synapse is where learning meets creation. Connect your knowledge, insights, and creativity with AI agents that understand how you think.
           </p>
           <div className="flex gap-4 justify-center">
-            <button className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-lg font-medium">
+            <Link href="/auth/signin" className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition text-lg font-medium">
               Start Free Trial
-            </button>
+            </Link>
             <button className="px-6 py-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition text-lg font-medium border border-slate-200 dark:border-slate-700">
               Watch Demo
             </button>
@@ -181,9 +185,9 @@ export default function Home() {
           <p className="text-primary-100 text-lg mb-8">
             Join thousands of creators, researchers, and students using Synapse.
           </p>
-          <button className="px-8 py-3 bg-white text-primary-600 rounded-lg hover:bg-primary-50 transition text-lg font-medium">
+          <Link href="/auth/signin" className="inline-block px-8 py-3 bg-white text-primary-600 rounded-lg hover:bg-primary-50 transition text-lg font-medium">
             Start Your Free Trial
-          </button>
+          </Link>
         </div>
       </section>
 
