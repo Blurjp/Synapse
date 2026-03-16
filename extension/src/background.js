@@ -42,7 +42,12 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // Handle keyboard shortcuts
 chrome.commands.onCommand.addListener(async (command) => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  
+
+  if (!tab) {
+    showNotification('Error', 'No active tab');
+    return;
+  }
+
   if (command === 'save-page') {
     await savePage(tab);
   } else if (command === 'quick-note') {
@@ -147,7 +152,12 @@ async function saveLink(linkUrl, tab) {
   }
 }
 
-// Send data to backend
+/**
+ * Send data to the Synapse backend
+ * @param {string} endpoint - API endpoint (e.g., '/api/sources')
+ * @param {Object} data - Data to send
+ * @returns {Promise<{success: boolean, data?: any, error?: string}>}
+ */
 async function sendToBackend(endpoint, data) {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -157,11 +167,12 @@ async function sendToBackend(endpoint, data) {
       },
       body: JSON.stringify(data)
     });
-    
+
     if (response.ok) {
       return { success: true, data: await response.json() };
     } else {
-      return { success: false, error: response.statusText };
+      const errorBody = await response.text().catch(() => response.statusText);
+      return { success: false, error: `HTTP ${response.status}: ${errorBody}` };
     }
   } catch (error) {
     return { success: false, error: error.message };

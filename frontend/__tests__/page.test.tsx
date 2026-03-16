@@ -5,7 +5,9 @@ import Home from '../app/page'
 describe('Home Page', () => {
   it('renders the Synapse logo', () => {
     render(<Home />)
-    expect(screen.getByText('Synapse')).toBeInTheDocument()
+    // Multiple elements contain "Synapse", so check that at least one exists
+    const synapseElements = screen.getAllByText('Synapse')
+    expect(synapseElements.length).toBeGreaterThan(0)
   })
 
   it('renders navigation links', () => {

@@ -50,29 +50,39 @@ function getMetaContent(name) {
   return meta ? meta.getAttribute('content') : '';
 }
 
-// Highlight selected text
-document.addEventListener('mouseup', () => {
-  const selection = window.getSelection();
-  if (selection.toString().trim()) {
-    // Could show a tooltip to save selection
-    console.log('Text selected:', selection.toString());
-  }
-});
+// Event handlers (stored for cleanup)
+const handlers = {
+  mouseup: () => {
+    const selection = window.getSelection();
+    if (selection.toString().trim()) {
+      // Could show a tooltip to save selection
+      console.log('Text selected:', selection.toString());
+    }
+  },
+  keydown: (e) => {
+    // Ctrl/Cmd + Shift + S: Save page
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
+      e.preventDefault();
+      chrome.runtime.sendMessage({ type: 'SAVE_PAGE' });
+    }
 
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  // Ctrl/Cmd + Shift + S: Save page
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'S') {
-    e.preventDefault();
-    chrome.runtime.sendMessage({ type: 'SAVE_PAGE' });
-  }
-  
-  // Ctrl/Cmd + Shift + H: Save highlight
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'H') {
-    e.preventDefault();
-    const selection = window.getSelection().toString().trim();
-    if (selection) {
-      chrome.runtime.sendMessage({ type: 'SAVE_HIGHLIGHT', selection });
+    // Ctrl/Cmd + Shift + H: Save highlight
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'H') {
+      e.preventDefault();
+      const selection = window.getSelection().toString().trim();
+      if (selection) {
+        chrome.runtime.sendMessage({ type: 'SAVE_HIGHLIGHT', selection });
+      }
     }
   }
+};
+
+// Add event listeners
+document.addEventListener('mouseup', handlers.mouseup);
+document.addEventListener('keydown', handlers.keydown);
+
+// Cleanup on page unload
+window.addEventListener('unload', () => {
+  document.removeEventListener('mouseup', handlers.mouseup);
+  document.removeEventListener('keydown', handlers.keydown);
 });
