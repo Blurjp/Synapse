@@ -48,24 +48,24 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-secondary-50 p-4">
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-4 shadow-lg">
             <Brain className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Welcome to Synapse</h1>
-          <p className="mt-2 text-slate-600 dark:text-slate-400">Sign in to continue</p>
+          <h1 className="text-3xl font-bold text-secondary-900">Welcome to Synapse</h1>
+          <p className="mt-2 text-secondary-600">Sign in to continue</p>
         </div>
 
         {/* Auth Card */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8">
+        <div className="card shadow-xl">
           {authMethod === "choice" && (
             <div className="space-y-4">
               <button
                 onClick={() => setAuthMethod("credentials")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors font-medium"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium"
               >
                 <Mail className="w-5 h-5" />
                 Sign in with Email
@@ -73,20 +73,20 @@ export default function SignInPage() {
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200 dark:border-slate-700" />
+                  <div className="w-full border-t border-secondary-200" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white dark:bg-slate-800 text-slate-500">or</span>
+                  <span className="px-2 bg-white text-secondary-500">or</span>
                 </div>
               </div>
 
               <button
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors font-medium disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-secondary-200 rounded-lg bg-white text-secondary-700 hover:bg-secondary-50 transition-colors font-medium disabled:opacity-50"
               >
                 {isLoading ? (
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-slate-900 dark:border-white" />
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-secondary-900" />
                 ) : (
                   <>
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -119,53 +119,53 @@ export default function SignInPage() {
               <button
                 type="button"
                 onClick={() => setAuthMethod("choice")}
-                className="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 mb-4"
+                className="text-sm text-secondary-500 hover:text-secondary-700 mb-4"
               >
                 ← Back
               </button>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-secondary-700 mb-2">
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary-400" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="demo@synapse.app"
-                    className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 bg-secondary-50 border border-secondary-200 rounded-lg text-secondary-900 placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-secondary-700 mb-2">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary-400" />
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••"
-                    className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 bg-secondary-50 border border-secondary-200 rounded-lg text-secondary-900 placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                     required
                   />
                 </div>
               </div>
 
               {error && (
-                <p className="text-sm text-red-500 text-center">{error}</p>
+                <p className="text-sm text-danger-500 text-center">{error}</p>
               )}
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors font-medium disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium disabled:opacity-50"
               >
                 {isLoading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
@@ -177,8 +177,8 @@ export default function SignInPage() {
                 )}
               </button>
 
-              <div className="mt-4 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
-                <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
+              <div className="mt-4 p-3 bg-secondary-50 rounded-lg border border-secondary-200">
+                <p className="text-xs text-secondary-500 text-center">
                   <strong>Demo accounts:</strong><br />
                   demo@synapse.app / demo123<br />
                   test@synapse.app / test123

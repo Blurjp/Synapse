@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { FloatingSidebar } from "@/components/sidebar";
+import { ConditionalFloatingSidebar } from "@/components/sidebar/ConditionalFloatingSidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
           {children}
-          <FloatingSidebar />
+          <ConditionalFloatingSidebar />
         </SessionProvider>
       </body>
     </html>

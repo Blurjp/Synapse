@@ -27,7 +27,7 @@ export function FloatingSidebar() {
         className={cn(
           'fixed right-6 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-300',
           isOpen
-            ? 'bg-slate-600 text-white hover:bg-slate-700'
+            ? 'bg-secondary-700 text-white hover:bg-secondary-800'
             : 'bg-primary-500 text-white hover:bg-primary-600'
         )}
       >
@@ -41,19 +41,19 @@ export function FloatingSidebar() {
       {/* Sidebar Panel */}
       <div
         className={cn(
-          'fixed right-0 top-0 z-40 h-full w-96 bg-white dark:bg-slate-900 shadow-2xl transition-transform duration-300 ease-in-out',
+          'fixed right-0 top-0 z-40 h-full w-96 bg-white shadow-2xl transition-transform duration-300 ease-in-out border-l border-secondary-200',
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 px-4 py-3">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+        <div className="flex items-center justify-between border-b border-secondary-200 px-4 py-3">
+          <h2 className="text-lg font-semibold text-secondary-900">
             Synapse Assistant
           </h2>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-slate-200 dark:border-slate-700">
+        <div className="flex border-b border-secondary-200">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -61,8 +61,8 @@ export function FloatingSidebar() {
               className={cn(
                 'flex flex-1 flex-col items-center gap-1 py-3 text-sm font-medium transition-colors',
                 activeTab === tab.id
-                  ? 'border-b-2 border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'
+                  ? 'border-b-2 border-primary-500 text-primary-500'
+                  : 'text-secondary-500 hover:text-secondary-700'
               )}
             >
               <tab.icon className="h-5 w-5" />

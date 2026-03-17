@@ -3,27 +3,60 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  /* Figma Design System Colors */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F8F9FA;
+  --color-bg-accent: #E3F2FD;
+  --color-text-primary: #212529;
+  --color-text-secondary: #6C757D;
+  --color-text-muted: #ADB5BD;
+  --color-border: #E9ECEF;
+  --color-primary: #0D6EFD;
+  --color-success: #198754;
+  --color-purple: #6F42C1;
+  --color-orange: #FD7E14;
+  --color-danger: #DC3545;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+@layer components {
+  /* Card Component */
+  .card {
+    @apply bg-white border border-secondary-200 rounded-lg p-6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Sidebar Navigation Item */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-secondary-600 hover:bg-secondary-50 transition-colors cursor-pointer;
+  }
+
+  .nav-item.active {
+    @apply bg-primary-50 text-primary-500 font-medium;
+  }
+
+  /* Metric Card */
+  .metric-card {
+    @apply card flex items-center gap-4;
+  }
+
+  .metric-icon {
+    @apply w-12 h-12 rounded-lg flex items-center justify-center;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition-colors font-medium;
+  }
+
+  .btn-outline {
+    @apply bg-white border border-secondary-200 text-secondary-600 px-4 py-2 rounded-md hover:bg-secondary-50 transition-colors font-medium;
+  }
 }
 
 @layer utilities {
