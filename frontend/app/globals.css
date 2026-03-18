@@ -3,19 +3,20 @@
 @tailwind utilities;
 
 :root {
-  /* Figma Design System Colors */
+  /* Synapse Design System Colors - Purple to Blue Gradient */
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F8F9FA;
-  --color-bg-accent: #E3F2FD;
-  --color-text-primary: #212529;
-  --color-text-secondary: #6C757D;
-  --color-text-muted: #ADB5BD;
-  --color-border: #E9ECEF;
-  --color-primary: #0D6EFD;
-  --color-success: #198754;
-  --color-purple: #6F42C1;
-  --color-orange: #FD7E14;
-  --color-danger: #DC3545;
+  --color-bg-secondary: #F8FAFC;
+  --color-bg-accent: #F3E8FF;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94A3B8;
+  --color-border: #E2E8F0;
+  --color-primary: #A855F7;
+  --color-primary-dark: #7C3AED;
+  --color-accent: #3B82F6;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
 }
 
 body {
@@ -37,7 +38,7 @@ body {
   }
 
   .nav-item.active {
-    @apply bg-primary-50 text-primary-500 font-medium;
+    @apply bg-gradient-primary-light text-primary-700 font-medium;
   }
 
   /* Metric Card */
@@ -51,7 +52,7 @@ body {
 
   /* Button Styles */
   .btn-primary {
-    @apply bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition-colors font-medium;
+    @apply bg-gradient-primary text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity font-medium shadow-md;
   }
 
   .btn-outline {

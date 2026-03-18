@@ -1,49 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#E3F2FD"/>
-      <stop offset="100%" style="stop-color:#BBDEFB"/>
-    </linearGradient>
-    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2196F3"/>
-      <stop offset="100%" style="stop-color:#0D6EFD"/>
+      <stop offset="0%" style="stop-color:#A855F7"/>
+      <stop offset="50%" style="stop-color:#7C3AED"/>
+      <stop offset="100%" style="stop-color:#3B82F6"/>
     </linearGradient>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0D6EFD" flood-opacity="0.3"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#7C3AED" flood-opacity="0.4"/>
     </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="512" height="512" rx="108" fill="url(#bgGrad)"/>
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)" filter="url(#shadow)"/>
 
-  <!-- Synapse Network Icon -->
-  <g filter="url(#shadow)">
-    <!-- Central node -->
-    <circle cx="256" cy="256" r="40" fill="url(#iconGrad)"/>
+  <!-- Brain/Synapse Shape -->
+  <g fill="white" opacity="0.95">
+    <!-- Left hemisphere -->
+    <path d="M180 160
+             C140 160 120 200 120 240
+             C120 280 140 320 180 340
+             C160 360 160 380 180 400
+             L200 380
+             C180 360 180 340 200 320
+             C160 300 150 270 150 240
+             C150 210 160 180 200 170
+             C180 160 180 160 180 160Z"/>
 
-    <!-- Outer nodes -->
-    <circle cx="160" cy="180" r="28" fill="url(#iconGrad)"/>
-    <circle cx="352" cy="180" r="28" fill="url(#iconGrad)"/>
-    <circle cx="140" cy="320" r="28" fill="url(#iconGrad)"/>
-    <circle cx="372" cy="320" r="28" fill="url(#iconGrad)"/>
+    <!-- Right hemisphere -->
+    <path d="M332 160
+             C372 160 392 200 392 240
+             C392 280 372 320 332 340
+             C352 360 352 380 332 400
+             L312 380
+             C332 360 332 340 312 320
+             C352 300 362 270 362 240
+             C362 210 352 180 312 170
+             C332 160 332 160 332 160Z"/>
+
+    <!-- Center connection -->
+    <ellipse cx="256" cy="260" rx="60" ry="80" opacity="0.9"/>
+
+    <!-- Neural connections -->
+    <circle cx="200" cy="200" r="12"/>
+    <circle cx="312" cy="200" r="12"/>
+    <circle cx="180" cy="280" r="10"/>
+    <circle cx="332" cy="280" r="10"/>
+    <circle cx="256" cy="180" r="8"/>
+    <circle cx="256" cy="340" r="8"/>
 
     <!-- Connection lines -->
-    <line x1="256" y1="256" x2="160" y2="180" stroke="#0D6EFD" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
-    <line x1="256" y1="256" x2="352" y2="180" stroke="#0D6EFD" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
-    <line x1="256" y1="256" x2="140" y2="320" stroke="#0D6EFD" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
-    <line x1="256" y1="256" x2="372" y2="320" stroke="#0D6EFD" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
-
-    <!-- Cross connections -->
-    <line x1="160" y1="180" x2="352" y2="180" stroke="#0D6EFD" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
-    <line x1="140" y1="320" x2="372" y2="320" stroke="#0D6EFD" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
-    <line x1="160" y1="180" x2="140" y2="320" stroke="#0D6EFD" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
-    <line x1="352" y1="180" x2="372" y2="320" stroke="#0D6EFD" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
-
-    <!-- Node highlights -->
-    <circle cx="256" cy="256" r="15" fill="white" opacity="0.3"/>
-    <circle cx="160" cy="180" r="10" fill="white" opacity="0.3"/>
-    <circle cx="352" cy="180" r="10" fill="white" opacity="0.3"/>
-    <circle cx="140" cy="320" r="10" fill="white" opacity="0.3"/>
-    <circle cx="372" cy="320" r="10" fill="white" opacity="0.3"/>
+    <line x1="200" y1="200" x2="256" y2="180" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+    <line x1="312" y1="200" x2="256" y2="180" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+    <line x1="180" y1="280" x2="256" y2="260" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+    <line x1="332" y1="280" x2="256" y2="260" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+    <line x1="200" y1="200" x2="256" y2="260" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="312" y1="200" x2="256" y2="260" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="256" y1="180" x2="256" y2="340" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
   </g>
 </svg>

@@ -9,47 +9,52 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Figma Design Color Palette
+        // Synapse Design Color Palette - Purple to Blue Gradient
         primary: {
-          50: "#E3F2FD",
-          100: "#BBDEFB",
-          200: "#90CAF9",
-          300: "#64B5F6",
-          400: "#42A5F5",
-          500: "#0D6EFD",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e",
+          50: "#FAF5FF",
+          100: "#F3E8FF",
+          200: "#E9D5FF",
+          300: "#D8B4FE",
+          400: "#C084FC",
+          500: "#A855F7", // Gradient start (purple)
+          600: "#9333EA",
+          700: "#7C3AED", // Gradient middle
+          800: "#6D28D9",
+          900: "#5B21B6",
+        },
+        accent: {
+          400: "#60A5FA",
+          500: "#3B82F6", // Gradient end (blue)
+          600: "#2563EB",
         },
         secondary: {
-          50: "#F8F9FA",
-          100: "#F1F3F5",
-          200: "#E9ECEF",
-          300: "#DEE2E6",
-          400: "#CED4DA",
-          500: "#ADB5BD",
-          600: "#6C757D",
-          700: "#495057",
-          800: "#343A40",
-          900: "#212529",
+          50: "#F8FAFC",
+          100: "#F1F5F9",
+          200: "#E2E8F0",
+          300: "#CBD5E1",
+          400: "#94A3B8",
+          500: "#64748B",
+          600: "#475569",
+          700: "#334155",
+          800: "#1E293B",
+          900: "#0F172A",
         },
         success: {
-          500: "#198754",
-          600: "#157347",
+          500: "#22C55E",
+          600: "#16A34A",
         },
-        purple: {
-          500: "#6F42C1",
-          600: "#5E35B1",
-        },
-        orange: {
-          500: "#FD7E14",
-          600: "#E36209",
+        warning: {
+          500: "#F59E0B",
+          600: "#D97706",
         },
         danger: {
-          500: "#DC3545",
-          600: "#C82333",
+          500: "#EF4444",
+          600: "#DC2626",
         },
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #A855F7 0%, #7C3AED 50%, #3B82F6 100%)',
+        'gradient-primary-light': 'linear-gradient(135deg, #F3E8FF 0%, #EDE9FE 50%, #DBEAFE 100%)',
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],

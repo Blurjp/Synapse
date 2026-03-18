@@ -48,11 +48,11 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-secondary-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 p-4">
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-2xl mb-4 shadow-xl">
             <Brain className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-secondary-900">Welcome to Synapse</h1>
@@ -65,7 +65,7 @@ export default function SignInPage() {
             <div className="space-y-4">
               <button
                 onClick={() => setAuthMethod("credentials")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-gradient-primary text-white rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md"
               >
                 <Mail className="w-5 h-5" />
                 Sign in with Email
@@ -119,7 +119,7 @@ export default function SignInPage() {
               <button
                 type="button"
                 onClick={() => setAuthMethod("choice")}
-                className="text-sm text-secondary-500 hover:text-secondary-700 mb-4"
+                className="text-sm text-secondary-500 hover:text-primary-500 mb-4 transition-colors"
               >
                 ← Back
               </button>
@@ -165,7 +165,7 @@ export default function SignInPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-primary text-white rounded-lg hover:opacity-90 transition-opacity font-medium shadow-md disabled:opacity-50"
               >
                 {isLoading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
@@ -177,9 +177,9 @@ export default function SignInPage() {
                 )}
               </button>
 
-              <div className="mt-4 p-3 bg-secondary-50 rounded-lg border border-secondary-200">
-                <p className="text-xs text-secondary-500 text-center">
-                  <strong>Demo accounts:</strong><br />
+              <div className="mt-4 p-3 bg-gradient-primary-light rounded-lg border border-primary-100">
+                <p className="text-xs text-secondary-600 text-center">
+                  <strong className="text-primary-700">Demo accounts:</strong><br />
                   demo@synapse.app / demo123<br />
                   test@synapse.app / test123
                 </p>

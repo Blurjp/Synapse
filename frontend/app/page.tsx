@@ -1,31 +1,30 @@
-import { Sparkles, Edit3, Link2, Brain, Zap, ArrowRight } from "lucide-react";
+import { Brain, Zap, ArrowRight, Sparkles, Users, Lightbulb } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-secondary-50">
       {/* Header */}
-      <header className="bg-white border-b border-secondary-200 sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-md border-b border-secondary-200 sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <nav className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5">
-              <Brain className="w-8 h-8 text-primary-500" />
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
+                <Brain className="w-6 h-6 text-white" />
+              </div>
               <div>
-                <span className="text-xl font-semibold text-secondary-900">Synapse</span>
+                <span className="text-xl font-bold text-secondary-900">Synapse</span>
                 <p className="text-xs text-secondary-500">Knowledge Management</p>
               </div>
             </Link>
             <div className="flex items-center gap-6">
-              <a href="#features" className="text-secondary-600 hover:text-secondary-900 transition">
+              <a href="#features" className="text-secondary-600 hover:text-primary-500 transition">
                 Features
               </a>
-              <a href="#use-cases" className="text-secondary-600 hover:text-secondary-900 transition">
+              <a href="#use-cases" className="text-secondary-600 hover:text-primary-500 transition">
                 Use Cases
               </a>
-              <a href="#pricing" className="text-secondary-600 hover:text-secondary-900 transition">
-                Pricing
-              </a>
-              <Link href="/auth/signin" className="text-secondary-600 hover:text-secondary-900 transition">
+              <Link href="/auth/signin" className="text-secondary-600 hover:text-primary-500 transition">
                 Sign In
               </Link>
               <Link href="/auth/signin" className="btn-primary flex items-center gap-2">
@@ -38,161 +37,127 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-20">
+      <section className="container mx-auto px-6 py-24">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <Zap className="w-12 h-12 text-primary-500" />
-            <Brain className="w-12 h-12 text-purple-500" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-primary-light rounded-full text-primary-700 text-sm font-medium mb-8">
+            <Sparkles className="w-4 h-4" />
+            AI-Powered Knowledge Platform
           </div>
-          <h1 className="text-5xl font-bold text-secondary-900 mb-6">
+          <h1 className="text-6xl font-bold text-secondary-900 mb-6 leading-tight">
             Where ideas
             <br />
-            <span className="text-primary-500">connect.</span>
+            <span className="bg-gradient-primary bg-clip-text text-transparent">connect</span>
           </h1>
-          <p className="text-xl text-secondary-600 mb-8 max-w-2xl mx-auto">
-            Synapse is where learning meets creation. Connect your knowledge, insights, and creativity with AI agents that understand how you think.
+          <p className="text-xl text-secondary-600 mb-10 max-w-2xl mx-auto">
+            Synapse brings your notes, research, and ideas together in one connected space.
+            Powered by AI to help you learn faster and create better.
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link href="/auth/signin" className="btn-primary flex items-center gap-2 text-lg px-6 py-3">
-              Start Free Trial
+          <div className="flex items-center justify-center gap-4">
+            <Link href="/auth/signin" className="btn-primary flex items-center gap-2 text-lg px-8 py-3">
+              Get Started Free
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <button className="btn-outline text-lg px-6 py-3">
-              Watch Demo
-            </button>
+            <Link href="#features" className="btn-outline text-lg px-8 py-3">
+              Learn More
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
       <section id="features" className="container mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary-900 mb-4">
-            The #1 personalized AI learning and creation agent
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-secondary-900 mb-4">
+            Everything connected in one place
           </h2>
+          <p className="text-secondary-600 max-w-2xl mx-auto">
+            Powerful features designed to help you capture, organize, and connect your knowledge.
+          </p>
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Feature 1 */}
-          <div className="card hover:shadow-md transition">
-            <div className="metric-icon bg-primary-50 mb-4">
-              <Link2 className="w-6 h-6 text-primary-500" />
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="card hover:shadow-lg transition-shadow">
+            <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
+              <Brain className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-900 mb-2">
-              Save anything from anywhere
+              AI-Powered Insights
             </h3>
             <p className="text-secondary-600">
-              Supports PDFs, webpages, YouTube videos, podcasts, audio recordings, Office documents, and more.
+              Get intelligent suggestions and connections between your notes, powered by advanced AI.
             </p>
           </div>
-
-          {/* Feature 2 */}
-          <div className="card hover:shadow-md transition">
-            <div className="metric-icon bg-amber-50 mb-4">
-              <Sparkles className="w-6 h-6 text-amber-500" />
+          <div className="card hover:shadow-lg transition-shadow">
+            <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-900 mb-2">
-              Your insights, not just from AI
+              Smart Organization
             </h3>
             <p className="text-secondary-600">
-              It learns from your highlights, notes, and annotations while you read, watch, or listen.
+              Automatically categorize and tag your content. Find what you need instantly.
             </p>
           </div>
-
-          {/* Feature 3 */}
-          <div className="card hover:shadow-md transition">
-            <div className="metric-icon bg-green-50 mb-4">
-              <Edit3 className="w-6 h-6 text-green-500" />
+          <div className="card hover:shadow-lg transition-shadow">
+            <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
+              <Users className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-xl font-semibold text-secondary-900 mb-2">
-              Generation is just the beginning
+              Collaborate Together
             </h3>
             <p className="text-secondary-600">
-              Every AI report opens as a fully editable document. Review, rewrite, and refine freely.
-            </p>
-          </div>
-
-          {/* Feature 4 */}
-          <div className="card hover:shadow-md transition">
-            <div className="metric-icon bg-purple-50 mb-4">
-              <Brain className="w-6 h-6 text-purple-500" />
-            </div>
-            <h3 className="text-xl font-semibold text-secondary-900 mb-2">
-              Everything connected in one space
-            </h3>
-            <p className="text-secondary-600">
-              From saving materials and gaining insights to lasting creation in one connected space.
+              Share boards and notes with your team. Build knowledge together in real-time.
             </p>
           </div>
         </div>
       </section>
 
       {/* Use Cases Section */}
-      <section id="use-cases" className="container mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary-900 mb-4">
-            How people are using Synapse
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Creators */}
-          <div className="card bg-secondary-50 border-secondary-200">
-            <h3 className="text-2xl font-semibold text-secondary-900 mb-4">
-              For creators
-            </h3>
-            <p className="text-secondary-600 mb-4">
-              Turning scattered ideas and materials into meaningful stories can feel overwhelming. Synapse helps you uncover hidden themes, connect ideas, and shape your insights.
-            </p>
-            <p className="text-primary-500 font-semibold">
-              Create with confidence.
-            </p>
+      <section id="use-cases" className="bg-white py-20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-secondary-900 mb-4">
+              Built for curious minds
+            </h2>
           </div>
-
-          {/* Researchers */}
-          <div className="card bg-secondary-50 border-secondary-200">
-            <h3 className="text-2xl font-semibold text-secondary-900 mb-4">
-              For researchers
-            </h3>
-            <p className="text-secondary-600 mb-4">
-              Distilling key insights from piles of sources takes time and focus. Synapse brings everything together, synthesizing your findings into clear, persuasive reports.
-            </p>
-            <p className="text-purple-500 font-semibold">
-              Present with influence.
-            </p>
-          </div>
-
-          {/* Students */}
-          <div className="card bg-secondary-50 border-secondary-200">
-            <h3 className="text-2xl font-semibold text-secondary-900 mb-4">
-              For students
-            </h3>
-            <p className="text-secondary-600 mb-4">
-              Facing endless readings and dense literature can feel exhausting. Synapse turns complex materials into clear understanding, transforming heavy texts.
-            </p>
-            <p className="text-orange-500 font-semibold">
-              Learn with ease.
-            </p>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="card border-l-4 border-l-primary-500">
+              <Lightbulb className="w-8 h-8 text-primary-500 mb-4" />
+              <h3 className="text-xl font-semibold text-secondary-900 mb-2">
+                For creators
+              </h3>
+              <p className="text-secondary-600">
+                Capture灵感 moments, organize ideas, and turn scattered thoughts into polished content.
+              </p>
+            </div>
+            <div className="card border-l-4 border-l-accent-500">
+              <Zap className="w-8 h-8 text-accent-500 mb-4" />
+              <h3 className="text-xl font-semibold text-secondary-900 mb-2">
+                For researchers
+              </h3>
+              <p className="text-secondary-600">
+                Connect findings across papers, see relationships between concepts, and accelerate discovery.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="container mx-auto px-6 py-20">
-        <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl p-12 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Zap className="w-10 h-10 text-white" />
-            <Brain className="w-10 h-10 text-white" />
+        <div className="bg-gradient-primary rounded-3xl p-16 text-center shadow-xl">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Zap className="w-12 h-12 text-white" />
+            <Brain className="w-12 h-12 text-white" />
           </div>
           <h2 className="text-4xl font-bold text-white mb-4">
             Ready to connect your ideas?
           </h2>
-          <p className="text-primary-100 text-lg mb-8">
-            Join thousands of creators, researchers, and students using Synapse.
+          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+            Join thousands of creators, researchers, and students using Synapse to build their knowledge.
           </p>
           <Link
             href="/auth/signin"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-white text-primary-500 rounded-lg hover:bg-primary-50 transition text-lg font-medium"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 rounded-xl hover:bg-primary-50 transition text-lg font-semibold shadow-lg"
           >
             Start Your Free Trial
             <ArrowRight className="w-5 h-5" />
@@ -204,9 +169,11 @@ export default function Home() {
       <footer className="bg-white border-t border-secondary-200">
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Brain className="w-6 h-6 text-primary-500" />
-              <span className="text-lg font-semibold text-secondary-900">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
+                <Brain className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-lg font-bold text-secondary-900">
                 Synapse
               </span>
             </div>
