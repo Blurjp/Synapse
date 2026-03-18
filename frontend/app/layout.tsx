@@ -10,6 +10,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Synapse - Where ideas connect",
   description: "AI-powered learning and creation platform",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
