@@ -39,10 +39,10 @@ export default function DashboardPage() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="flex items-center gap-3">
-          <img src="/icon.jpg" alt="Synapse" className="w-8 h-8 animate-pulse" />
-          <span className="text-lg text-secondary-600">Loading...</span>
+          <img src="/icon.jpg?v=2" alt="Synapse" className="w-8 h-8 animate-pulse" />
+          <span className="text-lg text-neutral-600">Loading...</span>
         </div>
       </div>
     );
@@ -53,16 +53,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-secondary-50">
+    <div className="flex min-h-screen bg-neutral-50">
       {/* Sidebar */}
-      <aside className="w-[250px] bg-white border-r border-secondary-200 flex flex-col fixed h-full">
+      <aside className="w-[250px] bg-white border-r border-neutral-200 flex flex-col fixed h-full">
         {/* Logo */}
-        <div className="p-5 border-b border-secondary-200">
+        <div className="p-5 border-b border-neutral-200">
           <div className="flex items-center gap-2.5">
-            <img src="/icon.jpg" alt="Synapse" className="w-10 h-10 rounded-xl shadow-lg" />
+            <img src="/icon.jpg?v=2" alt="Synapse" className="w-14 h-10 rounded-xl shadow-lg" />
             <div>
-              <h1 className="text-lg font-semibold text-secondary-900">Synapse</h1>
-              <p className="text-xs text-secondary-500">Knowledge Management</p>
+              <h1 className="text-lg font-semibold text-neutral-900">Synapse</h1>
+              <p className="text-xs text-neutral-500">Knowledge Management</p>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function DashboardPage() {
         <nav className="flex-1 p-4 overflow-y-auto">
           {navItems.map((section, idx) => (
             <div key={idx} className="mb-6">
-              <h3 className="text-xs font-semibold text-secondary-500 uppercase tracking-wider mb-2 px-4">
+              <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-4">
                 {section.section}
               </h3>
               <ul className="space-y-1">
@@ -92,7 +92,7 @@ export default function DashboardPage() {
         </nav>
 
         {/* User Profile */}
-        <div className="p-4 border-t border-secondary-200">
+        <div className="p-4 border-t border-neutral-200">
           <div className="flex items-center gap-3">
             {session.user?.image ? (
               <img
@@ -101,17 +101,17 @@ export default function DashboardPage() {
                 className="w-10 h-10 rounded-full"
               />
             ) : (
-              <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
-                <span className="text-primary-600 font-medium">
+              <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center">
+                <span className="text-neutral-600 font-medium">
                   {session.user?.name?.[0] || "U"}
                 </span>
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-secondary-900 truncate">
+              <p className="text-sm font-medium text-neutral-900 truncate">
                 {session.user?.name}
               </p>
-              <p className="text-xs text-secondary-500 truncate">
+              <p className="text-xs text-neutral-500 truncate">
                 {session.user?.email}
               </p>
             </div>
@@ -122,25 +122,25 @@ export default function DashboardPage() {
       {/* Main Content */}
       <main className="flex-1 ml-[250px]">
         {/* Top Bar */}
-        <header className="bg-white border-b border-secondary-200 sticky top-0 z-40">
+        <header className="bg-white border-b border-neutral-200 sticky top-0 z-40">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-semibold text-secondary-900">Dashboard</h1>
-                <p className="text-sm text-secondary-500 mt-0.5">Welcome to Synapse</p>
+                <h1 className="text-2xl font-semibold text-neutral-900">Dashboard</h1>
+                <p className="text-sm text-neutral-500 mt-0.5">Welcome to Synapse</p>
               </div>
               <div className="flex items-center gap-4">
                 {/* Search */}
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
                   <input
                     type="text"
                     placeholder="Search..."
-                    className="pl-10 pr-4 py-2 w-64 bg-secondary-50 border border-secondary-200 rounded-lg text-secondary-900 placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="pl-10 pr-4 py-2 w-64 bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 focus:border-neutral-500"
                   />
                 </div>
                 {/* Notifications */}
-                <button className="relative p-2 text-secondary-500 hover:text-secondary-700 hover:bg-secondary-50 rounded-lg">
+                <button className="relative p-2 text-neutral-500 hover:text-neutral-700 hover:bg-neutral-50 rounded-lg">
                   <Bell className="w-5 h-5" />
                 </button>
               </div>
@@ -152,10 +152,10 @@ export default function DashboardPage() {
         <div className="p-6">
           {/* Welcome Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-secondary-900 mb-1">
+            <h2 className="text-2xl font-semibold text-neutral-900 mb-1">
               Welcome back, {session.user?.name?.split(" ")[0] || "there"}!
             </h2>
-            <p className="text-secondary-600">
+            <p className="text-neutral-600">
               Here&apos;s an overview of your knowledge base
             </p>
           </div>
@@ -164,12 +164,12 @@ export default function DashboardPage() {
           <div className="grid grid-cols-4 gap-4 mb-8">
             <div className="card">
               <div className="flex items-center gap-4">
-                <div className="metric-icon bg-primary-50">
-                  <FolderOpen className="w-6 h-6 text-primary-500" />
+                <div className="metric-icon bg-neutral-50">
+                  <FolderOpen className="w-6 h-6 text-black" />
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-600 mb-1">Total Boards</p>
-                  <p className="text-3xl font-bold text-secondary-900">12</p>
+                  <p className="text-sm text-neutral-600 mb-1">Total Boards</p>
+                  <p className="text-3xl font-bold text-neutral-900">12</p>
                 </div>
               </div>
             </div>
@@ -180,20 +180,20 @@ export default function DashboardPage() {
                   <FileText className="w-6 h-6 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-600 mb-1">Total Notes</p>
-                  <p className="text-3xl font-bold text-secondary-900">156</p>
+                  <p className="text-sm text-neutral-600 mb-1">Total Notes</p>
+                  <p className="text-3xl font-bold text-neutral-900">156</p>
                 </div>
               </div>
             </div>
 
             <div className="card">
               <div className="flex items-center gap-4">
-                <div className="metric-icon bg-purple-50">
-                  <BarChart3 className="w-6 h-6 text-purple-500" />
+                <div className="metric-icon bg-neutral-50">
+                  <BarChart3 className="w-6 h-6 text-black" />
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-600 mb-1">Categories</p>
-                  <p className="text-3xl font-bold text-secondary-900">8</p>
+                  <p className="text-sm text-neutral-600 mb-1">Categories</p>
+                  <p className="text-3xl font-bold text-neutral-900">8</p>
                 </div>
               </div>
             </div>
@@ -204,8 +204,8 @@ export default function DashboardPage() {
                   <Settings className="w-6 h-6 text-amber-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-600 mb-1">Active</p>
-                  <p className="text-3xl font-bold text-secondary-900">24h</p>
+                  <p className="text-sm text-neutral-600 mb-1">Active</p>
+                  <p className="text-3xl font-bold text-neutral-900">24h</p>
                 </div>
               </div>
             </div>
@@ -216,17 +216,17 @@ export default function DashboardPage() {
             {/* Activity Overview */}
             <div className="card">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-secondary-900">Activity Overview</h3>
+                <h3 className="text-lg font-semibold text-neutral-900">Activity Overview</h3>
                 <button className="btn-outline text-sm">View All</button>
               </div>
               <div className="h-48 flex items-end justify-between gap-2 px-4">
                 {[40, 55, 45, 60, 75, 65, 80].map((height, idx) => (
                   <div key={idx} className="flex-1 flex flex-col items-center gap-2">
                     <div
-                      className="w-full bg-primary-500 rounded-t-sm transition-all hover:bg-primary-600"
+                      className="w-full bg-neutral-500 rounded-t-sm transition-all hover:bg-neutral-800"
                       style={{ height: `${height}%` }}
                     ></div>
-                    <span className="text-xs text-secondary-400">
+                    <span className="text-xs text-neutral-400">
                       {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][idx]}
                     </span>
                   </div>
@@ -237,24 +237,24 @@ export default function DashboardPage() {
             {/* Recent Boards */}
             <div className="card">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-secondary-900">Recent Boards</h3>
+                <h3 className="text-lg font-semibold text-neutral-900">Recent Boards</h3>
                 <button className="btn-outline text-sm">See All</button>
               </div>
               <div className="space-y-3">
                 {[
-                  { title: "Research Notes", items: 24, color: "bg-blue-500" },
-                  { title: "Content Ideas", items: 18, color: "bg-amber-500" },
-                  { title: "Learning Path", items: 12, color: "bg-green-500" },
-                  { title: "Project Alpha", items: 45, color: "bg-purple-500" },
+                  { title: "Research Notes", items: 24, color: "bg-neutral-500" },
+                  { title: "Content Ideas", items: 18, color: "bg-neutral-700" },
+                  { title: "Learning Path", items: 12, color: "bg-neutral-800" },
+                  { title: "Project Alpha", items: 45, color: "bg-neutral-600" },
                 ].map((board, idx) => (
-                  <div key={idx} className="flex items-center gap-3 py-2 border-b border-secondary-100 last:border-0">
+                  <div key={idx} className="flex items-center gap-3 py-2 border-b border-neutral-100 last:border-0">
                     <div className={`w-8 h-8 ${board.color} rounded-lg flex items-center justify-center`}>
                       <FolderOpen className="w-4 h-4 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-medium text-secondary-900">{board.title}</p>
+                      <p className="font-medium text-neutral-900">{board.title}</p>
                     </div>
-                    <span className="text-sm text-secondary-500">{board.items} items</span>
+                    <span className="text-sm text-neutral-500">{board.items} items</span>
                   </div>
                 ))}
               </div>

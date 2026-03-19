@@ -3,17 +3,21 @@
 @tailwind utilities;
 
 :root {
-  /* Synapse Design System Colors - Purple to Blue Gradient */
+  /* Synapse Design System - Minimalist Black & White */
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F8FAFC;
-  --color-bg-accent: #F3E8FF;
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #475569;
-  --color-text-muted: #94A3B8;
-  --color-border: #E2E8F0;
-  --color-primary: #A855F7;
-  --color-primary-dark: #7C3AED;
-  --color-accent: #3B82F6;
+  --color-bg-secondary: #FAFAFA;
+  --color-bg-tertiary: #F5F5F5;
+  --color-text-primary: #000000;
+  --color-text-secondary: #262626;
+  --color-text-muted: #737373;
+  --color-border: #E5E5E5;
+  --color-border-light: #F5F5F5;
+
+  /* Accent - black for primary actions */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  /* Status colors */
   --color-success: #22C55E;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
@@ -28,17 +32,19 @@ body {
 @layer components {
   /* Card Component */
   .card {
-    @apply bg-white border border-secondary-200 rounded-lg p-6;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    @apply bg-white border border-neutral-200 rounded-lg p-6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
 
   /* Sidebar Navigation Item */
   .nav-item {
-    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-secondary-600 hover:bg-secondary-50 transition-colors cursor-pointer;
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer;
   }
 
   .nav-item.active {
-    @apply bg-primary-50 text-primary-700 font-medium;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-black);
+    font-weight: 500;
   }
 
   /* Metric Card */
@@ -50,24 +56,38 @@ body {
     @apply w-12 h-12 rounded-lg flex items-center justify-center;
   }
 
-  /* Button Styles */
+  /* Button Styles - minimalist black & white */
   .btn-primary {
-    @apply text-white px-4 py-2 rounded-md font-medium shadow-md;
-    background: linear-gradient(135deg, #A855F7 0%, #7C3AED 50%, #3B82F6 100%);
-    transition: opacity 0.2s;
+    @apply text-white px-4 py-2 rounded-lg font-medium;
+    background-color: var(--color-black);
+    transition: all 0.2s;
   }
 
   .btn-primary:hover {
-    opacity: 0.9;
+    background-color: var(--color-text-secondary);
+    transform: translateY(-1px);
   }
 
   .btn-outline {
-    @apply bg-white border border-secondary-200 text-secondary-600 px-4 py-2 rounded-md hover:bg-secondary-50 transition-colors font-medium;
+    @apply bg-white border border-neutral-300 text-neutral-900 px-4 py-2 rounded-lg hover:bg-neutral-50 transition-colors font-medium;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Minimalist gradients - subtle gray/white */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, var(--color-black) 0%, #262626 100%);
+  }
+
+  .bg-gradient-subtle {
+    background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+  }
+
+  .bg-gradient-light {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
   }
 }

@@ -48,13 +48,13 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-subtle p-4">
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
-          <img src="/icon.jpg" alt="Synapse" className="inline-block w-16 h-16 rounded-2xl mb-4 shadow-xl" />
-          <h1 className="text-3xl font-bold text-secondary-900">Welcome to Synapse</h1>
-          <p className="mt-2 text-secondary-600">Sign in to continue</p>
+          <img src="/icon.jpg?v=2" alt="Synapse" className="inline-block w-16 h-16 rounded-2xl mb-4 shadow-xl" />
+          <h1 className="text-3xl font-bold text-neutral-900">Welcome to Synapse</h1>
+          <p className="mt-2 text-neutral-600">Sign in to continue</p>
         </div>
 
         {/* Auth Card */}
@@ -71,20 +71,20 @@ export default function SignInPage() {
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-secondary-200" />
+                  <div className="w-full border-t border-neutral-200" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-secondary-500">or</span>
+                  <span className="px-2 bg-white text-neutral-500">or</span>
                 </div>
               </div>
 
               <button
                 onClick={handleGoogleSignIn}
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-secondary-200 rounded-lg bg-white text-secondary-700 hover:bg-secondary-50 transition-colors font-medium disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-neutral-200 rounded-lg bg-white text-neutral-700 hover:bg-neutral-50 transition-colors font-medium disabled:opacity-50"
               >
                 {isLoading ? (
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-secondary-900" />
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-neutral-900" />
                 ) : (
                   <>
                     <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -117,47 +117,47 @@ export default function SignInPage() {
               <button
                 type="button"
                 onClick={() => setAuthMethod("choice")}
-                className="text-sm text-secondary-500 hover:text-primary-500 mb-4 transition-colors"
+                className="text-sm text-neutral-500 hover:text-neutral-500 mb-4 transition-colors"
               >
                 ← Back
               </button>
 
               <div>
-                <label className="block text-sm font-medium text-secondary-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="demo@synapse.app"
-                    className="w-full pl-10 pr-4 py-3 bg-secondary-50 border border-secondary-200 rounded-lg text-secondary-900 placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full pl-10 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 focus:border-neutral-500"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-secondary-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary-400" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••"
-                    className="w-full pl-10 pr-4 py-3 bg-secondary-50 border border-secondary-200 rounded-lg text-secondary-900 placeholder-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full pl-10 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 focus:border-neutral-500"
                     required
                   />
                 </div>
               </div>
 
               {error && (
-                <p className="text-sm text-danger-500 text-center">{error}</p>
+                <p className="text-sm text-red-500 text-center">{error}</p>
               )}
 
               <button
@@ -175,9 +175,9 @@ export default function SignInPage() {
                 )}
               </button>
 
-              <div className="mt-4 p-3 bg-gradient-primary-light rounded-lg border border-primary-100">
-                <p className="text-xs text-secondary-600 text-center">
-                  <strong className="text-primary-700">Demo accounts:</strong><br />
+              <div className="mt-4 p-3 bg-gradient-primary-light rounded-lg border border-neutral-100">
+                <p className="text-xs text-neutral-600 text-center">
+                  <strong className="text-neutral-700">Demo accounts:</strong><br />
                   demo@synapse.app / demo123<br />
                   test@synapse.app / test123
                 </p>
