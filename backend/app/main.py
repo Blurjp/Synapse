@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, sources, documents, highlights, notes
+from app.api import auth, sources, documents, highlights, notes, ai
 from app.core.config import settings
 
 app = FastAPI(
@@ -24,6 +24,7 @@ app.include_router(sources.router, prefix="/api/sources", tags=["sources"])
 app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
 app.include_router(highlights.router, prefix="/api/highlights", tags=["highlights"])
 app.include_router(notes.router, prefix="/api/notes", tags=["notes"])
+app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
 
 
 @app.get("/")

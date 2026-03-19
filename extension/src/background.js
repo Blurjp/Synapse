@@ -20,6 +20,13 @@ chrome.runtime.onInstalled.addListener(() => {
     title: 'Save Link to Synapse',
     contexts: ['link']
   });
+
+  // New AI Summarize option
+  chrome.contextMenus.create({
+    id: 'summarize-page',
+    title: '✨ AI Summarize Page',
+    contexts: ['page']
+  });
 });
 
 // Handle context menu clicks
@@ -36,6 +43,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     await saveHighlight(info.selectionText, tab.url, tab.title);
   } else if (info.menuItemId === 'save-link') {
     await saveLink(info.linkUrl, tab);
+  } else if (info.menuItemId === 'summarize-page') {
+    await summarizePage(tab);
   }
 });
 
@@ -148,6 +157,63 @@ async function saveLink(linkUrl, tab) {
   } catch (error) {
     console.error('Error saving link:', error);
     showNotification('Error', 'Failed to save link to Synapse');
+    return { success: false, error: error.message };
+  }
+}
+
+// AI Summarize page
+async function summarizePage(tab) {
+  try {
+    showNotification('Summarizing...', 'Analyzing page content with AI');
+    
+    // Get page content from content script
+    const response = await chrome.tabs.sendMessage(tab.id, { type: 'GET_PAGE_CONTENT' });
+    
+    if (!response || !response.content) {
+      showNotification('Error', 'Could not extract page content');
+      return { success: false, error: 'No content' };
+    }
+
+    // Call AI summarize API
+    const result = await sendToBackend('/api/ai/summarize', {
+      content: response.content,
+      title: tab.title,
+      source_url: tab.url,
+      max_length: 500,
+      style: 'concise'
+    });
+
+    if (result.success && result.data) {
+      const { summary, key_points } = result.data;
+      
+      // Create a notification with the summary
+      const notificationMessage = summary.length > 100 
+        ? summary.substring(0, 100) + '...' 
+        : summary;
+      
+      showNotification('Summary Ready', notificationMessage);
+      
+      // Also save the summary to sources
+      await sendToBackend('/api/sources/', {
+        type: 'summary',
+        title: `Summary: ${tab.title}`,
+        content: summary,
+        raw_url: tab.url,
+        metadata: {
+          key_points: key_points,
+          original_word_count: response.wordCount,
+          summarized_at: new Date().toISOString()
+        }
+      });
+
+      return { success: true, data: result.data };
+    } else {
+      showNotification('Error', result.error || 'Failed to summarize page');
+      return result;
+    }
+  } catch (error) {
+    console.error('Error summarizing page:', error);
+    showNotification('Error', 'Failed to summarize page: ' + error.message);
     return { success: false, error: error.message };
   }
 }
