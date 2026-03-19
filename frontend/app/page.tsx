@@ -74,9 +74,7 @@ export default function Home() {
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="card hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
+            <img src="/icon.jpg" alt="Synapse" className="w-12 h-12 rounded-xl mb-4" />
             <h3 className="text-xl font-semibold text-secondary-900 mb-2">
               AI-Powered Insights
             </h3>
@@ -145,7 +143,7 @@ export default function Home() {
         <div className="bg-gradient-primary rounded-3xl p-16 text-center shadow-xl">
           <div className="flex items-center justify-center gap-3 mb-6">
             <Zap className="w-12 h-12 text-white" />
-            <Brain className="w-12 h-12 text-white" />
+            <img src="/icon.jpg" alt="Synapse" className="w-12 h-12" />
           </div>
           <h2 className="text-4xl font-bold text-white mb-4">
             Ready to connect your ideas?
