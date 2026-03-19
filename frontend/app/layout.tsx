@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   title: "Synapse - Where ideas connect",
   description: "AI-powered learning and creation platform",
   icons: {
-    icon: "/favicon.svg",
-    apple: "/icon.svg",
+    icon: "/icon.webp",
+    apple: "/apple-touch-icon.webp",
   },
 };
 
