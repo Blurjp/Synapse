@@ -101,8 +101,8 @@ To change:
 - Check CORS settings
 
 ### Icons Not Showing
-- Icons are simple placeholders
-- To customize, replace PNG files in `extension/icons/`
+- Icons are generated from the provided app icon at `extension/icons/icon-app.svg`
+- To customize, regenerate the PNG files in `extension/icons/`
 - Reload extension after changes
 
 ---

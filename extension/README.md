@@ -6,13 +6,18 @@ Browser extension for saving web content to Synapse.
 
 ### Development Mode
 
-1. **Generate Icons** (or use placeholder)
+1. **Generate Icons**
    ```bash
-   # If you have ImageMagick or similar tool
-   convert icon.svg -resize 16x16 icon16.png
-   convert icon.svg -resize 32x32 icon32.png
-   convert icon.svg -resize 48x48 icon48.png
-   convert icon.svg -resize 128x128 icon128.png
+   # Generate extension icons from the app icon source
+   mkdir -p /tmp/synapse-icon-{16,32,48,128}
+   qlmanage -t -s 16 -o /tmp/synapse-icon-16 extension/icons/icon-app.svg
+   qlmanage -t -s 32 -o /tmp/synapse-icon-32 extension/icons/icon-app.svg
+   qlmanage -t -s 48 -o /tmp/synapse-icon-48 extension/icons/icon-app.svg
+   qlmanage -t -s 128 -o /tmp/synapse-icon-128 extension/icons/icon-app.svg
+   cp /tmp/synapse-icon-16/icon-app.svg.png extension/icons/icon16.png
+   cp /tmp/synapse-icon-32/icon-app.svg.png extension/icons/icon32.png
+   cp /tmp/synapse-icon-48/icon-app.svg.png extension/icons/icon48.png
+   cp /tmp/synapse-icon-128/icon-app.svg.png extension/icons/icon128.png
    ```
 
 2. **Load Extension**
@@ -117,8 +122,7 @@ extension/
 - Verify API endpoints exist
 
 ### Icons Not Showing
-- Generate PNG icons from SVG
-- Or use placeholder icons
+- Regenerate the PNG icons from `extension/icons/icon-app.svg`
 
 ## Permissions
 
