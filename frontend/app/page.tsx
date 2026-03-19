@@ -1,4 +1,4 @@
-import { Brain, Zap, ArrowRight, Sparkles, Users, Lightbulb } from "lucide-react";
+import { Zap, ArrowRight, Sparkles, Users, Lightbulb } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -9,9 +9,7 @@ export default function Home() {
         <div className="container mx-auto px-6 py-4">
           <nav className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
-                <Brain className="w-6 h-6 text-white" />
-              </div>
+              <img src="/icon.jpg" alt="Synapse" className="w-10 h-10 rounded-xl shadow-lg" />
               <div>
                 <span className="text-xl font-bold text-secondary-900">Synapse</span>
                 <p className="text-xs text-secondary-500">Knowledge Management</p>
@@ -170,9 +168,7 @@ export default function Home() {
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <Brain className="w-5 h-5 text-white" />
-              </div>
+              <img src="/icon.jpg" alt="Synapse" className="w-8 h-8 rounded-lg" />
               <span className="text-lg font-bold text-secondary-900">
                 Synapse
               </span>

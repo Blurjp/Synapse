@@ -9,7 +9,6 @@ import {
   BarChart3,
   FileText,
   Settings,
-  Brain,
   Search,
   Bell,
 } from "lucide-react";
@@ -42,7 +41,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="flex items-center gap-3">
-          <Brain className="w-8 h-8 text-primary-500 animate-pulse" />
+          <img src="/icon.jpg" alt="Synapse" className="w-8 h-8 animate-pulse" />
           <span className="text-lg text-secondary-600">Loading...</span>
         </div>
       </div>
@@ -60,9 +59,7 @@ export default function DashboardPage() {
         {/* Logo */}
         <div className="p-5 border-b border-secondary-200">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
+            <img src="/icon.jpg" alt="Synapse" className="w-10 h-10 rounded-xl shadow-lg" />
             <div>
               <h1 className="text-lg font-semibold text-secondary-900">Synapse</h1>
               <p className="text-xs text-secondary-500">Knowledge Management</p>

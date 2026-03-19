@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react"
 import { useState } from "react"
-import { Brain, Mail, Lock, ArrowRight } from "lucide-react"
+import { Mail, Lock, ArrowRight } from "lucide-react"
 
 export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -52,9 +52,7 @@ export default function SignInPage() {
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-2xl mb-4 shadow-xl">
-            <Brain className="w-8 h-8 text-white" />
-          </div>
+          <img src="/icon.jpg" alt="Synapse" className="inline-block w-16 h-16 rounded-2xl mb-4 shadow-xl" />
           <h1 className="text-3xl font-bold text-secondary-900">Welcome to Synapse</h1>
           <p className="mt-2 text-secondary-600">Sign in to continue</p>
         </div>
