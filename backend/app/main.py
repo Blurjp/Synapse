@@ -36,3 +36,9 @@ def startup_event():
     except Exception as e:
         logger.error(f"Database initialization error: {e}")
         print(f"Database initialization error: {e}")
+
+
+@app.get("/health")
+def health_check():
+    """Health check endpoint for Railway"""
+    return {"status": "healthy"}
