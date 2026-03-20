@@ -12,6 +12,7 @@ pgvector==0.2.5
 # Auth
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
+google-auth==2.29.0
 
 # Validation
 pydantic==2.8.0
