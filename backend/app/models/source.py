@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Text, DateTime, JSON, Enum
+from sqlalchemy import Column, String, Text, DateTime, JSON, Enum as SQLEnum
 from sqlalchemy.sql import func
 from sqlalchemy import ForeignKey
 from app.core.database import Base
@@ -15,6 +15,7 @@ class SourceType(str, enum.Enum):
     DOCUMENT = "document"
     TEXT = "text"
     LINK = "link"
+    SUMMARY = "summary"
 
 
 class Source(Base):
@@ -22,7 +23,7 @@ class Source(Base):
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    type = Column(Enum(SourceType), nullable=False)
+    type = Column(SQLEnum(SourceType), nullable=False)
     title = Column(String(500), nullable=False)
     content = Column(Text, nullable=True)
     raw_url = Column(Text, nullable=True)

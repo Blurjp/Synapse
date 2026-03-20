@@ -2,6 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import auth, sources, documents, highlights, notes, ai
 from app.core.config import settings
+from app.core.database import engine, Base
+
+# Import all models to register them with Base.metadata
+from app.models import User, Source, Document, Highlight, Note
 
 app = FastAPI(
     title="Synapse API",
@@ -9,14 +13,24 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS middleware
+# CORS middleware - allow all origins for extension
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Create database tables on startup"""
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("Database tables created/verified")
+    except Exception as e:
+        print(f"Database initialization error: {e}")
 
 # Include routers
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])

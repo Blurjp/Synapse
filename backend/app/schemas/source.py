@@ -13,6 +13,7 @@ class SourceType(str, Enum):
     DOCUMENT = "document"
     TEXT = "text"
     LINK = "link"
+    SUMMARY = "summary"
 
 
 class SourceBase(BaseModel):
