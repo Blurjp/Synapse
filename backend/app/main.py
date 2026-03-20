@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, sources, documents, highlights, notes, ai
+from app.api import auth, sources, documents, highlights, notes, ai, oauth
 from app.core.config import settings
 from app.core.database import engine, Base
 import logging
@@ -70,6 +70,7 @@ def health_check():
 
 # Include API routers
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(oauth.router, prefix="/api/auth", tags=["oauth"])
 app.include_router(sources.router, prefix="/api/sources", tags=["sources"])
 app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
 app.include_router(highlights.router, prefix="/api/highlights", tags=["highlights"])

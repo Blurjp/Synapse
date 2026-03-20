@@ -120,6 +120,46 @@ class AuthService:
                 detail="Invalid token"
             )
 
+    def get_or_create_google_user(
+        self,
+        google_id: str,
+        email: str,
+        name: str = '',
+        picture: str = ''
+    ) -> User:
+        """Get existing user or create new user from Google OAuth"""
+        # Check if user exists by email
+        user = self.db.query(User).filter(User.email == email).first()
+        
+        if user:
+            # Update avatar if provided
+            if picture and not user.avatar:
+                user.avatar = picture
+                self.db.commit()
+                self.db.refresh(user)
+            return user
+        
+        # Create new user (no password for Google OAuth users)
+        user = User(
+            email=email,
+            name=name or email.split('@')[0],
+            hashed_password='',  # No password for OAuth users
+            avatar=picture
+        )
+        self.db.add(user)
+        self.db.commit()
+        self.db.refresh(user)
+        return user
+
+    def generate_tokens(self, user_id: str) -> dict:
+        """Generate access and refresh tokens for a user"""
+        access_token = self._create_access_token({"sub": user_id})
+        refresh_token = self._create_refresh_token({"sub": user_id})
+        return {
+            'access_token': access_token,
+            'refresh_token': refresh_token
+        }
+
     def _create_access_token(self, data: dict) -> str:
         """Create access token"""
         to_encode = data.copy()

@@ -9,6 +9,8 @@ from app.schemas.source import (
     SourceListResponse,
     SourceType
 )
+from app.api.auth import get_current_user
+from app.models.user import User
 from typing import Optional
 import uuid
 from datetime import datetime
@@ -16,19 +18,16 @@ from datetime import datetime
 router = APIRouter()
 
 
-# Temporary user ID (will be replaced with auth later)
-TEMP_USER_ID = "temp-user-123"
-
-
 @router.get("/", response_model=SourceListResponse)
 async def list_sources(
     limit: int = Query(10, ge=1, le=100),
     offset: int = Query(0, ge=0),
     source_type: Optional[SourceType] = None,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """List all sources with pagination"""
-    query = db.query(Source).filter(Source.user_id == TEMP_USER_ID)
+    """List all sources for the current user"""
+    query = db.query(Source).filter(Source.user_id == current_user.id)
     
     if source_type:
         query = query.filter(Source.type == source_type)
@@ -47,13 +46,14 @@ async def list_sources(
 @router.post("/", response_model=SourceResponse, status_code=status.HTTP_201_CREATED)
 async def create_source(
     source_data: SourceCreate,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Create a new source from webpage or link"""
-    # Create source
+    # Create source with authenticated user
     source = Source(
         id=str(uuid.uuid4()),
-        user_id=TEMP_USER_ID,
+        user_id=current_user.id,
         type=source_data.type,
         title=source_data.title,
         content=source_data.content,
@@ -73,6 +73,7 @@ async def create_source(
 async def upload_file(
     file: UploadFile = File(...),
     title: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Upload a file (PDF, document, etc.)"""
@@ -94,7 +95,7 @@ async def upload_file(
     # Create source
     source = Source(
         id=str(uuid.uuid4()),
-        user_id=TEMP_USER_ID,
+        user_id=current_user.id,
         type=source_type,
         title=title or file.filename,
         content=content_str,
@@ -116,12 +117,13 @@ async def upload_file(
 @router.get("/{source_id}", response_model=SourceResponse)
 async def get_source(
     source_id: str,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Get a specific source"""
     source = db.query(Source).filter(
         Source.id == source_id,
-        Source.user_id == TEMP_USER_ID
+        Source.user_id == current_user.id
     ).first()
     
     if not source:
@@ -137,12 +139,13 @@ async def get_source(
 async def update_source(
     source_id: str,
     source_data: SourceUpdate,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Update a source"""
     source = db.query(Source).filter(
         Source.id == source_id,
-        Source.user_id == TEMP_USER_ID
+        Source.user_id == current_user.id
     ).first()
     
     if not source:
@@ -168,12 +171,13 @@ async def update_source(
 @router.delete("/{source_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_source(
     source_id: str,
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Delete a source"""
     source = db.query(Source).filter(
         Source.id == source_id,
-        Source.user_id == TEMP_USER_ID
+        Source.user_id == current_user.id
     ).first()
     
     if not source:

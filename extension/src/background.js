@@ -1,5 +1,97 @@
 // Background Service Worker
 const API_BASE_URL = 'https://synapse-production-68d7.up.railway.app';
+const GOOGLE_CLIENT_ID = '906373584050-qj7pkabvuner8pj1ldqp67ef8jkq1ipt.apps.googleusercontent.com';
+
+// Listen for messages from popup
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'SIGN_IN') {
+    handleGoogleSignIn()
+      .then(user => sendResponse({ success: true, user }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true; // Keep message channel open for async response
+  }
+  
+  if (message.type === 'SIGN_OUT') {
+    chrome.storage.local.remove(['access_token', 'refresh_token', 'user'])
+      .then(() => sendResponse({ success: true }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+});
+
+// Handle Google Sign In
+async function handleGoogleSignIn() {
+  return new Promise((resolve, reject) => {
+    const redirectUrl = chrome.identity.getRedirectURL();
+    const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+    
+    authUrl.searchParams.set('client_id', GOOGLE_CLIENT_ID);
+    authUrl.searchParams.set('response_type', 'id_token');
+    authUrl.searchParams.set('redirect_uri', redirectUrl);
+    authUrl.searchParams.set('scope', 'openid email profile');
+    authUrl.searchParams.set('access_type', 'online');
+    authUrl.searchParams.set('prompt', 'select_account');
+
+    chrome.identity.launchWebAuthFlow(
+      {
+        url: authUrl.toString(),
+        interactive: true
+      },
+      async (redirectResponse) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+          return;
+        }
+
+        if (!redirectResponse) {
+          reject(new Error('No response from OAuth'));
+          return;
+        }
+
+        try {
+          // Extract id_token from URL fragment
+          const url = new URL(redirectResponse);
+          const hash = url.hash.substring(1);
+          const params = new URLSearchParams(hash);
+          const idToken = params.get('id_token');
+
+          if (!idToken) {
+            reject(new Error('No ID token in response'));
+            return;
+          }
+
+          // Exchange Google token for Synapse JWT
+          const response = await fetch(`${API_BASE_URL}/api/auth/google`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_token: idToken })
+          });
+
+          if (!response.ok) {
+            const error = await response.text();
+            reject(new Error(`Auth failed: ${error}`));
+            return;
+          }
+
+          const data = await response.json();
+
+          // Store tokens and user info
+          await chrome.storage.local.set({
+            access_token: data.access_token,
+            refresh_token: data.refresh_token,
+            user: data.user
+          });
+
+          resolve(data.user);
+        } catch (error) {
+          reject(error);
+        }
+      }
+    );
+  });
+}
 
 // Create context menu items
 chrome.runtime.onInstalled.addListener(() => {
@@ -219,18 +311,28 @@ async function summarizePage(tab) {
 }
 
 /**
- * Send data to the Synapse backend
+ * Send data to the Synapse backend with authentication
  * @param {string} endpoint - API endpoint (e.g., '/api/sources')
  * @param {Object} data - Data to send
  * @returns {Promise<{success: boolean, data?: any, error?: string}>}
  */
 async function sendToBackend(endpoint, data) {
   try {
+    const result = await chrome.storage.local.get(['access_token']);
+    const token = result.access_token;
+
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    // Add auth header if token exists
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: JSON.stringify(data)
     });
 

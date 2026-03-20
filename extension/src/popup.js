@@ -2,6 +2,9 @@
 const API_BASE_URL = 'https://synapse-production-68d7.up.railway.app';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Check authentication status first
+  await checkAuthStatus();
+
   // Get current tab info
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -31,7 +34,79 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('saveNote').addEventListener('click', saveNote);
   document.getElementById('openDashboard').addEventListener('click', openDashboard);
   document.getElementById('settings').addEventListener('click', openSettings);
+  document.getElementById('loginBtn')?.addEventListener('click', handleLogin);
+  document.getElementById('logoutBtn')?.addEventListener('click', handleLogout);
 });
+
+// Check authentication status
+async function checkAuthStatus() {
+  const result = await chrome.storage.local.get(['user', 'access_token']);
+  
+  const loginSection = document.getElementById('loginSection');
+  const mainSection = document.getElementById('mainSection');
+  const userSection = document.getElementById('userSection');
+
+  if (result.access_token && result.user) {
+    // User is logged in
+    if (loginSection) loginSection.style.display = 'none';
+    if (mainSection) mainSection.style.display = 'block';
+    if (userSection) {
+      userSection.style.display = 'flex';
+      const userAvatar = document.getElementById('userAvatar');
+      const userName = document.getElementById('userName');
+      if (userAvatar && result.user.picture) {
+        userAvatar.src = result.user.picture;
+      }
+      if (userName) {
+        userName.textContent = result.user.name || result.user.email;
+      }
+    }
+  } else {
+    // User not logged in
+    if (loginSection) loginSection.style.display = 'block';
+    if (mainSection) mainSection.style.display = 'none';
+    if (userSection) userSection.style.display = 'none';
+  }
+}
+
+// Handle login
+async function handleLogin() {
+  const btn = document.getElementById('loginBtn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+  }
+
+  try {
+    // Send message to background script to handle OAuth
+    const response = await chrome.runtime.sendMessage({ type: 'SIGN_IN' });
+    
+    if (response.success) {
+      await checkAuthStatus();
+      showSuccess('Signed in successfully!');
+    } else {
+      showError('Sign in failed: ' + (response.error || 'Unknown error'));
+    }
+  } catch (error) {
+    showError('Sign in failed: ' + error.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Sign in with Google';
+    }
+  }
+}
+
+// Handle logout
+async function handleLogout() {
+  try {
+    await chrome.runtime.sendMessage({ type: 'SIGN_OUT' });
+    await checkAuthStatus();
+    showSuccess('Signed out');
+  } catch (error) {
+    showError('Sign out failed: ' + error.message);
+  }
+}
 
 // Check connection to backend
 async function checkConnection() {
@@ -75,6 +150,13 @@ async function checkSelection() {
 
 // Save page to Synapse
 async function savePage() {
+  // Check if authenticated
+  const result = await chrome.storage.local.get(['access_token']);
+  if (!result.access_token) {
+    showError('Please sign in first');
+    return;
+  }
+
   const btn = document.getElementById('savePage');
   btn.classList.add('loading');
 
@@ -148,6 +230,13 @@ async function savePage() {
 
 // Save selection as highlight
 async function saveSelection() {
+  // Check if authenticated
+  const result = await chrome.storage.local.get(['access_token']);
+  if (!result.access_token) {
+    showError('Please sign in first');
+    return;
+  }
+
   const btn = document.getElementById('saveSelection');
   btn.classList.add('loading');
 
@@ -194,6 +283,13 @@ async function saveSelection() {
 
 // Save quick note
 async function saveNote() {
+  // Check if authenticated
+  const authResult = await chrome.storage.local.get(['access_token']);
+  if (!authResult.access_token) {
+    showError('Please sign in first');
+    return;
+  }
+
   const noteInput = document.getElementById('noteInput');
   const note = noteInput.value.trim();
 
@@ -231,18 +327,27 @@ async function saveNote() {
 }
 
 /**
- * Send data to the Synapse backend
+ * Send data to the Synapse backend with authentication
  * @param {string} endpoint - API endpoint (e.g., '/api/sources/')
  * @param {Object} data - Data to send
  * @returns {Promise<{success: boolean, data?: any, error?: string}>}
  */
 async function sendToBackend(endpoint, data) {
   try {
+    const result = await chrome.storage.local.get(['access_token']);
+    const token = result.access_token;
+
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: JSON.stringify(data)
     });
 
@@ -262,7 +367,13 @@ async function loadRecentSaves() {
   const recentList = document.getElementById('recentList');
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/sources/?limit=5`);
+    const result = await chrome.storage.local.get(['access_token']);
+    const headers = {};
+    if (result.access_token) {
+      headers['Authorization'] = `Bearer ${result.access_token}`;
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/sources/?limit=5`, { headers });
     const data = await response.json();
 
     if (data.sources && data.sources.length > 0) {
@@ -297,11 +408,13 @@ function openSettings(e) {
 // Show success message
 function showSuccess(message) {
   console.log('Success:', message);
+  // Could add toast notification here
 }
 
 // Show error message
 function showError(message) {
   console.error('Error:', message);
+  // Could add toast notification here
 }
 
 // Utility functions

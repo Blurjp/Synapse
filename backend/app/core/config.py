@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     OPENAI_MODEL: str = "gpt-4-turbo-preview"
     OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
     
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = "906373584050-qj7pkabvuner8pj1ldqp67ef8jkq1ipt.apps.googleusercontent.com"
+    
     # File Upload
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024  # 10MB
     UPLOAD_DIR: str = "uploads"
