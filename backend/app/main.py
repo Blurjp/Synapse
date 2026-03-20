@@ -33,6 +33,30 @@ def startup_event():
         Base.metadata.create_all(bind=engine)
         logger.info("Database tables created/verified")
         print("Database tables created/verified")
+        
+        # Create temp user if not exists
+        from sqlalchemy.orm import Session
+        from app.models.user import User
+        session = Session(bind=engine)
+        try:
+            existing_user = session.query(User).filter(User.id == "temp-user-123").first()
+            if not existing_user:
+                temp_user = User(
+                    id="temp-user-123",
+                    email="temp@synapse.local",
+                    hashed_password="temp",
+                    name="Temp User"
+                )
+                session.add(temp_user)
+                session.commit()
+                logger.info("Temp user created")
+                print("Temp user created")
+        except Exception as e:
+            logger.warning(f"Could not create temp user: {e}")
+            print(f"Could not create temp user: {e}")
+        finally:
+            session.close()
+            
     except Exception as e:
         logger.error(f"Database initialization error: {e}")
         print(f"Database initialization error: {e}")
