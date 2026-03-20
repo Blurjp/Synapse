@@ -42,3 +42,12 @@ def startup_event():
 def health_check():
     """Health check endpoint for Railway"""
     return {"status": "healthy"}
+
+
+# Include API routers
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(sources.router, prefix="/api/sources", tags=["sources"])
+app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
+app.include_router(highlights.router, prefix="/api/highlights", tags=["highlights"])
+app.include_router(notes.router, prefix="/api/notes", tags=["notes"])
+app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
