@@ -22,7 +22,7 @@ class Source(Base):
     __tablename__ = "sources"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=True)  # Make nullable for extension
     type = Column(SQLEnum(SourceType), nullable=False)
     title = Column(String(500), nullable=False)
     content = Column(Text, nullable=True)
