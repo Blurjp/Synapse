@@ -31,10 +31,23 @@ class Settings(BaseSettings):
         "chrome-extension://*",  # Allow Chrome extensions
     ]
     
-    # OpenAI
+    # LLM Configuration
+    # Default LLM: GLM-5.1 (Zhipu AI)
+    LLM_PROVIDER: str = "zhipu"  # Options: zhipu, openai, anthropic
+    LLM_MODEL: str = "glm-5.1"
+    LLM_API_KEY: str = ""
+    LLM_API_BASE: str = "https://open.bigmodel.cn/api/paas/v4"
+    LLM_TEMPERATURE: float = 0.7
+    LLM_MAX_TOKENS: int = 4096
+    
+    # OpenAI (Alternative provider)
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4-turbo-preview"
     OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
+    
+    # Zhipu AI (GLM-5.1 - Default)
+    ZHIPU_API_KEY: str = ""
+    ZHIPU_MODEL: str = "glm-5.1"  # Options: glm-5.1, glm-4, glm-4-plus
     
     # Google OAuth
     GOOGLE_CLIENT_ID: str = "906373584050-qj7pkabvuner8pj1ldqp67ef8jkq1ipt.apps.googleusercontent.com"
