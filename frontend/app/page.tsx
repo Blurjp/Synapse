@@ -177,6 +177,17 @@ export default function Home() {
               © 2026 Synapse. All rights reserved.
             </p>
           </div>
+          <div className="mt-6 flex justify-center">
+            <a href="https://www.aitrove.ai" target="_blank" rel="noopener">
+              <img
+                src="https://www.aitrove.ai/images/aitrove-badge.svg"
+                alt="Featured on AITrove"
+                width={236}
+                height={54}
+                className="border-0"
+              />
+            </a>
+          </div>
         </div>
       </footer>
     </main>
